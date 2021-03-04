@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Payment.ExceptionHandling\Payment.ExceptionHandling.csproj" />
+    <ProjectReference Include="..\Payment.Interfaces\Payment.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
