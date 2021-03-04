@@ -16,16 +16,12 @@ namespace Payment.Repository
         public IExpensivePaymentGateway ExpensivePaymentGateways { get; }
         // Define property for premium payment gateway service
         public IPremiumPaymentGateway PremiumPaymentGateways { get; }
-        // Define property for payment state table
-        //public IPaymentStateRepository PaymentStates { get; }
 
         public UnitOfWork(IPaymentDbContext iPaymentDbContext,
-            IPaymentRepository iPaymentRepository,
-            /*IPaymentStateRepository iPaymentStateRepository,*/ ICheapPaymentGateway cheapPaymentGateways, IExpensivePaymentGateway expensivePaymentGateways, IPremiumPaymentGateway premiumPaymentGateways)
+            IPaymentRepository iPaymentRepository,ICheapPaymentGateway cheapPaymentGateways, IExpensivePaymentGateway expensivePaymentGateways, IPremiumPaymentGateway premiumPaymentGateways)
         {
             _context = iPaymentDbContext;
             Payments = iPaymentRepository;
-            //PaymentStates = iPaymentStateRepository;
             CheapPaymentGateways = cheapPaymentGateways;
             ExpensivePaymentGateways = expensivePaymentGateways;
             PremiumPaymentGateways = premiumPaymentGateways;

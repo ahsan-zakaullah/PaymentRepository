@@ -10,7 +10,6 @@ namespace Payment.Interfaces
         ICheapPaymentGateway CheapPaymentGateways { get; }
         IExpensivePaymentGateway ExpensivePaymentGateways { get; }
         IPremiumPaymentGateway PremiumPaymentGateways { get; }
-        //IPaymentStateRepository PaymentStates { get; }
         Task<int> Complete();
     }
 }

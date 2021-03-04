@@ -50,9 +50,6 @@ namespace PaymentApplication.WebApi.Controllers
                 var result = await _iUnitOfWork.Payments.GetByCreditCardAsync(paymentModel.CreditCardNumber);
                 if (result != null)
                 {
-                    // We can define the mapper to set the payment state value for update
-                    paymentModel.PaymentState.Id = result.PaymentState.Id;
-                    paymentModel.PaymentState.PaymentId = result.PaymentState.PaymentId;
                     // Use the cheap payment gateway to update the record
                     if (model.Amount < 20)
                     {

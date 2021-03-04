@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Payment.ExceptionHandling;
 using Payment.Interfaces.IRepositories;
@@ -17,18 +16,15 @@ namespace Payment.Services
 
         // Create the repository variable to access the repository layer
         private readonly IPaymentRepository _repository;
-        // Create the repository variable to access the repository layer
-        private readonly IPaymentStateRepository _stateRepository;
 
         #endregion
 
         #region constructor
 
         /*Initialize the repositories*/
-        public ExpensivePaymentGateway(IPaymentRepository repository, IPaymentStateRepository paymentStateRepository)
+        public ExpensivePaymentGateway(IPaymentRepository repository)
         {
             _repository = repository;
-            _stateRepository = paymentStateRepository;
         }
 
         #endregion
@@ -46,12 +42,9 @@ namespace Payment.Services
                     await _repository.AddAsync(model);
                     await _repository.SaveChangesAsync();
                     // try to add the payment model
-                    var result = _repository.GetAllAsync().ToList().FirstOrDefault(x => x.CreditCardNumber == model.CreditCardNumber);
+                    var result = _repository.GetByCreditCardAsync(model.CreditCardNumber);
                     if (result != null)
                     {
-                        model.PaymentState.PaymentId = result.Id;
-                        //model.PaymentState.PaymentStatus = (int)StatusEnum.Processed;
-                        await _stateRepository.AddAsync(model.PaymentState);
                         return model;
                     }
                     // Throw the custom exception if unable to save the payment
@@ -84,8 +77,6 @@ namespace Payment.Services
         {
             // update changes for payment table
             _repository.Update(updateModel);
-            // update changes for payment state table
-            _stateRepository.Update(updateModel.PaymentState);
         }
         #endregion
     }
